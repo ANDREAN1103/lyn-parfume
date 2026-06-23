@@ -6,30 +6,68 @@
     <title>LYN PARFUME - Luxury Premium Fragrance</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/vanilla-tilt/1.8.0/vanilla-tilt.min.js"></script>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Cinzel:wght=500;700&family=Plus+Jakarta+Sans:wght=400;500;600;700&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Cinzel:wght=500;700&family=Plus+Jakarta+Sans:wght=300;400;500;600;700&display=swap');
         
         body {
             font-family: 'Plus Jakarta Sans', sans-serif;
             scroll-behavior: smooth;
+            cursor: none; 
         }
         
+        #custom-cursor {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 10px;
+            height: 10px;
+            background-color: #D4AF37;
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 10000;
+            transform: translate(-50%, -50%);
+            transition: width 0.3s, height 0.3s, background-color 0.3s, mix-blend-mode 0.3s;
+            mix-blend-mode: difference;
+        }
+        #custom-cursor.cursor-hover {
+            width: 40px;
+            height: 40px;
+            background-color: rgba(212, 175, 55, 0.4);
+            border: 1px solid #D4AF37;
+            mix-blend-mode: normal;
+        }
+
+        .reveal {
+            opacity: 0;
+            transform: translateY(40px);
+            transition: all 1s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .logo-container-effect { 
+            transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1); 
+        }
+        .logo-container-effect:hover { 
+            transform: scale(1.05); 
+            filter: drop-shadow(0 0 12px rgba(212, 175, 55, 0.6)); 
+        }
+
         .brand-font {
             font-family: 'Cinzel', serif;
         }
 
-        /* BACKGROUND HERO LUXURY */
-        .hero-bg {
-            background: linear-gradient(rgba(10, 10, 10, 0.8), rgba(10, 10, 10, 0.95)), 
-                        url('https://images.unsplash.com/photo-1592945403244-b3fbafd7f539?q=80&w=1920&auto=format&fit=crop') center/cover no-repeat;
-            background-attachment: fixed;
+        .hero-overlay {
+            background: linear-gradient(rgba(10, 10, 10, 0.7), rgba(10, 10, 10, 0.95));
         }
 
-        /* KARTU PRODUK PREMIUM WITH SHINY SHINE EFFECT */
         .perfume-card {
             position: relative;
             overflow: hidden;
-            transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+            transition: border-color 0.6s cubic-bezier(0.16, 1, 0.3, 1);
         }
         
         .perfume-card::before {
@@ -43,6 +81,7 @@
             transform: skewX(-25deg);
             transition: 0.75s;
             z-index: 5;
+            pointer-events: none;
         }
 
         .perfume-card:hover::before {
@@ -50,25 +89,29 @@
         }
 
         .perfume-card:hover {
-            transform: translateY(-12px);
             border-color: rgba(212, 175, 55, 0.6);
-            box-shadow: 0 30px 60px -15px rgba(212, 175, 55, 0.2);
+            box-shadow: 0 20px 40px -10px rgba(212, 175, 55, 0.15);
         }
 
-        /* GRADASI TEKS EMAS KELAS ATAS */
         .logo-text {
-            background: linear-gradient(135deg, #FFE082 0%, #D4AF37 50%, #8C6D13 100%);
+            background: linear-gradient(90deg, #FFE082 0%, #D4AF37 40%, #FFFDE7 50%, #D4AF37 60%, #8C6D13 100%);
+            background-size: 200% auto;
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
+            animation: textShine 3s linear infinite;
         }
 
-        /* TOMBOL EMAS */
+        @keyframes textShine {
+            to { background-position: 200% center; }
+        }
+
         .gold-button {
             background: linear-gradient(135deg, #F3D06D 0%, #D4AF37 100%);
             color: #0F0F11;
             font-weight: 600;
             letter-spacing: 0.5px;
             transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+            cursor: none; 
         }
 
         .gold-button:hover {
@@ -76,7 +119,6 @@
             transform: scale(1.02);
         }
 
-        /* STRIP KUSTOM BADGE */
         .badge {
             position: absolute;
             top: 16px;
@@ -90,31 +132,25 @@
             text-transform: uppercase;
         }
 
-        /* CUSTOM SCROLLBAR BAR */
-        ::-webkit-scrollbar {
-            width: 8px;
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: #09090b; }
+        ::-webkit-scrollbar-thumb { background: #27272a; border-radius: 4px; }
+        ::-webkit-scrollbar-thumb:hover { background: #D4AF37; }
+
+        .hide-scrollbar::-webkit-scrollbar {
+            display: none;
         }
-        ::-webkit-scrollbar-track {
-            background: #09090b;
-        }
-        ::-webkit-scrollbar-thumb {
-            background: #27272a;
-            border-radius: 4px;
-        }
-        ::-webkit-scrollbar-thumb:hover {
-            background: #D4AF37;
+        .hide-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
         }
 
-        /* ANIMASI PULSE HALUS UNTUK INTRO LOGO */
         @keyframes custom-pulse {
             0%, 100% { transform: scale(1); opacity: 1; }
             50% { transform: scale(1.05); opacity: 0.85; }
         }
-        .animate-luxury-pulse {
-            animation: custom-pulse 3s infinite ease-in-out;
-        }
+        .animate-luxury-pulse { animation: custom-pulse 3s infinite ease-in-out; }
 
-        /* KANVAS PARTIKEL EMAS */
         #gold-particles {
             position: fixed;
             top: 0;
@@ -125,7 +161,6 @@
             z-index: 1;
         }
 
-        /* SPOTLIGHT EFFECT */
         .spotlight {
             position: fixed;
             top: 0;
@@ -137,13 +172,11 @@
             background: radial-gradient(600px circle at var(--x, 0px) var(--y, 0px), rgba(212, 175, 55, 0.035), transparent 80%);
         }
 
-        /* EFEK RIAK GELOMBANG WA */
         @keyframes wa-ping {
             0% { transform: scale(1); opacity: 0.8; }
             100% { transform: scale(1.6); opacity: 0; }
         }
 
-        /* EFEK GOYANG LEMBUT BERKALA ON WA */
         @keyframes wa-bounce {
             0%, 100%, 20%, 50%, 80% { transform: translateY(0); }
             40% { transform: translateY(-8px); }
@@ -163,17 +196,36 @@
 
         .wa-animation {
             animation: wa-bounce 4s infinite ease-in-out;
+            cursor: none;
+        }
+        
+        a, input, button {
+            cursor: none !important;
+        }
+
+        /* --- TAMBAHAN: ANIMASI MARQUEE --- */
+        @keyframes scroll-left {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-50%); }
+        }
+        .marquee-container {
+            display: flex;
+            width: 200%;
+            animation: scroll-left 25s linear infinite;
+        }
+        .marquee-container:hover {
+            animation-play-state: paused;
         }
     </style>
 </head>
 <body class="bg-[#09090B] text-zinc-100 antialiased overflow-hidden" id="main-body">
 
-    <!-- EFEK CAHAYA DAN PARTIKEL MEWAH -->
+    <div id="custom-cursor"></div>
+
     <div class="spotlight hidden md:block"></div>
     <canvas id="gold-particles"></canvas>
 
-    <!-- WELCOME SPLASH SCREEN OVERLAY (KETERANGAN SAAT MASUK WEB) -->
-    <div id="welcome-overlay" class="fixed inset-0 bg-[#09090B] z-[9999] flex flex-col items-center justify-center transition-all duration-1000 ease-in-out px-4 text-center">
+    <div id="welcome-overlay" class="fixed inset-0 bg-[#09090B] z-[9999] flex flex-col items-center justify-center transition-all duration-1000 ease-in-out px-4 text-center cursor-element">
         <div class="max-w-md mx-auto flex flex-col items-center animate-luxury-pulse mb-8">
             <div class="w-20 h-20 bg-zinc-900 border-2 border-[#D4AF37]/40 rounded-2xl flex items-center justify-center shadow-2xl mb-6">
                 <svg class="w-12 h-12" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -199,18 +251,16 @@
             </p>
         </div>
 
-        <button onclick="closeWelcomeOverlay()" class="gold-button px-8 py-3 rounded-xl text-xs font-bold tracking-[3px] uppercase shadow-lg shadow-amber-500/10">
+        <button onclick="closeWelcomeOverlay()" class="gold-button px-8 py-3 rounded-xl text-xs font-bold tracking-[3px] uppercase shadow-lg shadow-amber-500/10 cursor-element">
             MASUK KE KOLEKSI
         </button>
     </div>
 
-
-    <!-- HALAMAN UTAMA WEBSITE -->
     <div class="relative z-10">
-        <header class="bg-zinc-950/80 backdrop-blur-md sticky top-0 z-50 border-b border-zinc-900">
+        <header class="bg-zinc-950/80 backdrop-blur-md sticky top-0 z-50 border-b border-zinc-900 cursor-element">
             <div class="max-w-7xl mx-auto px-4 sm:px-6 py-4 flex items-center justify-between">
-                <div class="flex items-center gap-3.5">
-                    <div class="w-11 h-11 bg-zinc-900 border border-[#D4AF37]/30 rounded-xl flex items-center justify-center shadow-lg transition-transform hover:scale-105 duration-300">
+                <div class="flex items-center gap-3.5 logo-container-effect">
+                    <div class="w-11 h-11 bg-zinc-900 border border-[#D4AF37]/30 rounded-xl flex items-center justify-center shadow-lg transition-transform duration-300">
                         <svg class="w-7 h-7" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <path d="M5 6L8 9L12 5L16 9L19 6L17 12H7L5 6Z" fill="url(#gold-gradient)" />
                             <path d="M12 3L4 6V11C4 16.55 7.42 21.74 12 23C16.58 21.74 20 16.55 20 11V6L12 3ZM12 20.93C8.47 19.74 6 15.6 6 11V7.3L12 5.05L18 7.3V11C18 15.6 15.53 19.74 12 20.93Z" fill="url(#gold-gradient)" />
@@ -231,67 +281,166 @@
                 </div>
 
                 <nav class="hidden md:flex gap-10 text-xs font-semibold uppercase tracking-[2px] text-zinc-400">
-                    <a href="#home" class="hover:text-[#D4AF37] transition-colors">Beranda</a>
-                    <a href="#produk" class="hover:text-[#D4AF37] transition-colors">Koleksi</a>
-                    <a href="#artikel" class="hover:text-[#D4AF37] transition-colors">Mengapa Kami</a>
+                    <a href="#home" class="hover:text-[#D4AF37] transition-colors cursor-element">Beranda</a>
+                    <a href="#story" class="hover:text-[#D4AF37] transition-colors cursor-element">Kisah Kami</a>
+                    <a href="#produk" class="hover:text-[#D4AF37] transition-colors cursor-element">Koleksi</a>
+                    <a href="#artikel" class="hover:text-[#D4AF37] transition-colors cursor-element">Kualitas</a>
                 </nav>
 
-                <a href="https://wa.me/6281234567890" target="_blank" class="gold-button px-5 py-2.5 rounded-lg flex items-center gap-2 text-sm shadow-md">
+                <a href="https://wa.me/6281234567890" target="_blank" class="gold-button px-5 py-2.5 rounded-lg flex items-center gap-2 text-sm shadow-md cursor-element">
                     <i class="fab fa-whatsapp text-base"></i> <span class="hidden sm:inline">Hubungi</span> Admin
                 </a>
             </div>
         </header>
 
-        <section id="home" class="hero-bg h-[90vh] flex items-center justify-center relative">
-            <div class="max-w-4xl mx-auto px-4 text-center">
+        <!-- --- TAMBAHAN: MARQUEE BARU --- -->
+        <div class="bg-[#D4AF37]/10 border-b border-[#D4AF37]/20 py-2.5 overflow-hidden flex items-center relative z-40">
+            <div class="marquee-container text-[#D4AF37] font-semibold text-[10px] sm:text-xs tracking-[3px] uppercase whitespace-nowrap">
+                <div class="w-1/2 flex justify-around items-center">
+                    <span><i class="fas fa-gem mr-2"></i> Kualitas Extrait de Parfum Premium</span>
+                    <span><i class="fas fa-shipping-fast mr-2"></i> Gratis Ongkir Seluruh Indonesia</span>
+                    <span><i class="fas fa-tags mr-2"></i> Diskon 20% Gunakan Kode: LYNGOLD20</span>
+                </div>
+                <div class="w-1/2 flex justify-around items-center">
+                    <span><i class="fas fa-gem mr-2"></i> Kualitas Extrait de Parfum Premium</span>
+                    <span><i class="fas fa-shipping-fast mr-2"></i> Gratis Ongkir Seluruh Indonesia</span>
+                    <span><i class="fas fa-tags mr-2"></i> Diskon 20% Gunakan Kode: LYNGOLD20</span>
+                </div>
+            </div>
+        </div>
+
+        <section id="home" class="relative h-[90vh] flex items-center justify-center overflow-hidden">
+            <img src="https://images.unsplash.com/photo-1600861194942-f883de0dfe96?q=80&w=1920&h=1080&auto=format&fit=crop" 
+                 alt="Luxury Aesthetic Background" 
+                 class="absolute inset-0 w-full h-full object-cover z-0 opacity-50 transition-transform duration-[10000ms] hover:scale-110">
+            
+            <div class="hero-overlay absolute inset-0 z-0"></div>
+
+            <div class="max-w-4xl mx-auto px-4 text-center relative z-10 reveal">
                 <span class="text-[#D4AF37] text-xs font-bold tracking-[6px] uppercase bg-[#D4AF37]/10 px-4 py-2 rounded-full border border-[#D4AF37]/20">Ciptakan Kenangan Lewat Aroma</span>
                 <h2 class="text-4xl sm:text-6xl md:text-7xl font-bold brand-font mt-6 mb-6 tracking-wide text-white leading-tight">ELEGANCE IN<br class="sm:hidden"> EVERY DROP</h2>
                 <p class="text-lg sm:text-xl text-zinc-300 max-w-2xl mx-auto font-light leading-relaxed mb-10">Eksplorasi mahakarya parfum premium lokal kualitas dunia. Wangi mewah, elegan, dan tahan lama hingga sepanjang hari.</p>
-                <a href="#produk" class="gold-button px-10 py-4 rounded-xl text-md font-bold tracking-widest uppercase shadow-lg shadow-amber-500/10">
+                <a href="#produk" class="gold-button px-10 py-4 rounded-xl text-md font-bold tracking-widest uppercase shadow-lg shadow-amber-500/10 cursor-element">
                     JELAJAHI KOLEKSI
                 </a>
             </div>
         </section>
 
+        <section id="story" class="py-24 bg-[#09090B] relative border-b border-zinc-900">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6">
+                <div class="flex flex-col gap-14 items-center">
+                    
+                    <div class="reveal relative w-full aspect-video rounded-2xl overflow-hidden border border-zinc-800 group">
+                        
+                        <div id="story-slider" class="flex w-full h-full overflow-x-auto snap-x snap-mandatory scroll-smooth hide-scrollbar cursor-element">
+                            <div class="min-w-full h-full snap-center relative">
+                                <img src="https://images.unsplash.com/photo-1594035910387-fea47794261f?q=80&w=1920&h=1080&auto=format&fit=crop" alt="The Art of Making" class="w-full h-full object-cover opacity-80 transition-transform duration-1000 hover:scale-105">
+                                <div class="absolute inset-0 bg-gradient-to-t from-[#09090B] via-transparent to-transparent"></div>
+                                <div class="absolute bottom-8 left-8 sm:bottom-12 sm:left-12">
+                                    <span class="text-[#D4AF37] brand-font text-3xl sm:text-5xl font-bold drop-shadow-lg">L'art De La Parfumerie</span>
+                                </div>
+                            </div>
+                            <div class="min-w-full h-full snap-center relative">
+                                <img src="https://images.unsplash.com/photo-1588405748880-12d1d2a59f75?q=80&w=1920&h=1080&auto=format&fit=crop" alt="Pure Extraction" class="w-full h-full object-cover opacity-80 transition-transform duration-1000 hover:scale-105">
+                                <div class="absolute inset-0 bg-gradient-to-t from-[#09090B] via-transparent to-transparent"></div>
+                                <div class="absolute bottom-8 left-8 sm:bottom-12 sm:left-12">
+                                    <span class="text-[#D4AF37] brand-font text-3xl sm:text-5xl font-bold drop-shadow-lg">Essence of Elegance</span>
+                                </div>
+                            </div>
+                            <div class="min-w-full h-full snap-center relative">
+                                <img src="https://images.unsplash.com/photo-1615634260167-c8cdede054de?q=80&w=1920&h=1080&auto=format&fit=crop" alt="Luxury Bottle" class="w-full h-full object-cover opacity-80 transition-transform duration-1000 hover:scale-105">
+                                <div class="absolute inset-0 bg-gradient-to-t from-[#09090B] via-transparent to-transparent"></div>
+                                <div class="absolute bottom-8 left-8 sm:bottom-12 sm:left-12">
+                                    <span class="text-[#D4AF37] brand-font text-3xl sm:text-5xl font-bold drop-shadow-lg">The Golden Drop</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <button onclick="slideStory('left')" class="absolute left-4 sm:left-8 top-1/2 -translate-y-1/2 w-12 h-12 bg-zinc-950/60 backdrop-blur-md border border-[#D4AF37]/50 rounded-full flex items-center justify-center text-[#D4AF37] opacity-0 group-hover:opacity-100 transition-all duration-300 cursor-element hover:bg-[#D4AF37] hover:text-zinc-950 hover:scale-110 z-10">
+                            <i class="fas fa-chevron-left text-lg"></i>
+                        </button>
+                        <button onclick="slideStory('right')" class="absolute right-4 sm:right-8 top-1/2 -translate-y-1/2 w-12 h-12 bg-zinc-950/60 backdrop-blur-md border border-[#D4AF37]/50 rounded-full flex items-center justify-center text-[#D4AF37] opacity-0 group-hover:opacity-100 transition-all duration-300 cursor-element hover:bg-[#D4AF37] hover:text-zinc-950 hover:scale-110 z-10">
+                            <i class="fas fa-chevron-right text-lg"></i>
+                        </button>
+
+                        <div class="absolute bottom-6 left-1/2 -translate-x-1/2 flex gap-2 z-10" id="slider-dots">
+                            <div class="w-6 h-1.5 rounded-full bg-[#D4AF37] transition-all duration-300" id="dot-0"></div>
+                            <div class="w-2 h-1.5 rounded-full bg-zinc-600 transition-all duration-300" id="dot-1"></div>
+                            <div class="w-2 h-1.5 rounded-full bg-zinc-600 transition-all duration-300" id="dot-2"></div>
+                        </div>
+                    </div>
+
+                    <div class="reveal delay-200 w-full text-center max-w-5xl">
+                        <h2 class="text-[#D4AF37] text-xs font-bold tracking-[6px] uppercase mb-4">Filosofi Aroma</h2>
+                        <h3 class="text-3xl sm:text-5xl brand-font text-white mb-12 leading-tight">MAHAKARYA DI SETIAP <br class="hidden sm:block"> TINGKATAN NADA</h3>
+                        
+                        <div class="grid sm:grid-cols-3 gap-8 text-left">
+                            <div class="border-t-2 sm:border-t-0 sm:border-l-2 border-[#D4AF37]/30 pt-4 sm:pt-0 sm:pl-6 hover:border-[#D4AF37] transition-colors cursor-element">
+                                <h4 class="text-white text-lg font-semibold tracking-wider mb-3">Top Notes</h4>
+                                <p class="text-zinc-400 text-sm font-light leading-relaxed">Kesan pertama yang memikat. Sentuhan segar dan ringan yang langsung memeluk indera penciuman Anda di detik pertama.</p>
+                            </div>
+                            <div class="border-t-2 sm:border-t-0 sm:border-l-2 border-[#D4AF37]/30 pt-4 sm:pt-0 sm:pl-6 hover:border-[#D4AF37] transition-colors cursor-element">
+                                <h4 class="text-white text-lg font-semibold tracking-wider mb-3">Heart (Middle) Notes</h4>
+                                <p class="text-zinc-400 text-sm font-light leading-relaxed">Karakter utama parfum yang mekar setelah beberapa menit, menghadirkan harmoni floral, rempah, atau kehangatan yang kompleks.</p>
+                            </div>
+                            <div class="border-t-2 sm:border-t-0 sm:border-l-2 border-[#D4AF37]/30 pt-4 sm:pt-0 sm:pl-6 hover:border-[#D4AF37] transition-colors cursor-element">
+                                <h4 class="text-white text-lg font-semibold tracking-wider mb-3">Base Notes</h4>
+                                <p class="text-zinc-400 text-sm font-light leading-relaxed">Jejak aroma yang tertinggal hingga penghujung hari. Kaya, dalam, dan mengunci seluruh lapisan aroma di kulit Anda selama berjam-jam.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
         <section id="produk" class="py-24 bg-[#111115]/90 backdrop-blur-sm">
             <div class="max-w-7xl mx-auto px-4 sm:px-6">
-                <div class="text-center max-w-xl mx-auto mb-16">
+                <div class="text-center max-w-xl mx-auto mb-16 reveal">
                     <h2 class="text-3xl sm:text-4xl brand-font text-white font-bold tracking-wider">EKSKLUSIF KOLEKSI</h2>
                     <div class="w-16 h-[2px] bg-[#D4AF37] mx-auto mt-4 mb-4"></div>
                     <p class="text-zinc-400 text-sm">Menampilkan 100 varian mahakarya parfum eksklusif terbaik kami</p>
                 </div>
 
-                <div class="flex flex-wrap justify-center gap-2.5 mb-14" id="filter-container">
-                    <button data-category="all" class="filter-btn bg-[#D4AF37] text-zinc-950 px-6 py-2.5 rounded-md text-xs font-bold tracking-[2px] uppercase transition">Semua</button>
-                    <button data-category="pria" class="filter-btn text-[#D4AF37] border border-[#D4AF37]/30 bg-zinc-900/50 hover:bg-[#D4AF37]/10 px-6 py-2.5 rounded-md text-xs font-bold tracking-[2px] uppercase transition">Pria</button>
-                    <button data-category="wanita" class="filter-btn text-[#D4AF37] border border-[#D4AF37]/30 bg-zinc-900/50 hover:bg-[#D4AF37]/10 px-6 py-2.5 rounded-md text-xs font-bold tracking-[2px] uppercase transition">Wanita</button>
-                    <button data-category="unisex" class="filter-btn text-[#D4AF37] border border-[#D4AF37]/30 bg-zinc-900/50 hover:bg-[#D4AF37]/10 px-6 py-2.5 rounded-md text-xs font-bold tracking-[2px] uppercase transition">Unisex</button>
+                <div class="max-w-md mx-auto mb-10 px-4 reveal">
+                    <div class="relative cursor-element">
+                        <input type="text" id="searchInput" placeholder="Cari parfum impian Anda..." 
+                               class="w-full bg-zinc-900/50 border border-zinc-800 text-white placeholder-zinc-600 rounded-xl px-5 py-3 text-xs tracking-wider focus:outline-none focus:border-[#D4AF37] transition-all cursor-element">
+                        <div class="absolute right-4 top-3 text-zinc-500 pointer-events-none">
+                            <i class="fas fa-search"></i>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="flex flex-wrap justify-center gap-2.5 mb-14 reveal" id="filter-container">
+                    <button data-category="all" class="filter-btn cursor-element bg-[#D4AF37] text-zinc-950 px-6 py-2.5 rounded-md text-xs font-bold tracking-[2px] uppercase transition">Semua</button>
+                    <button data-category="pria" class="filter-btn cursor-element text-[#D4AF37] border border-[#D4AF37]/30 bg-zinc-900/50 hover:bg-[#D4AF37]/10 px-6 py-2.5 rounded-md text-xs font-bold tracking-[2px] uppercase transition">Pria</button>
+                    <button data-category="wanita" class="filter-btn cursor-element text-[#D4AF37] border border-[#D4AF37]/30 bg-zinc-900/50 hover:bg-[#D4AF37]/10 px-6 py-2.5 rounded-md text-xs font-bold tracking-[2px] uppercase transition">Wanita</button>
+                    <button data-category="unisex" class="filter-btn cursor-element text-[#D4AF37] border border-[#D4AF37]/30 bg-zinc-900/50 hover:bg-[#D4AF37]/10 px-6 py-2.5 rounded-md text-xs font-bold tracking-[2px] uppercase transition">Unisex</button>
                 </div>
 
                 <div class="grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 sm:gap-8" id="product-grid"></div>
             </div>
         </section>
 
-        <!-- TOMBOL WA DENGAN EFEK RIAK DAN GOYANG ESTETIK -->
-        <a href="https://wa.me/6281234567890" target="_blank" class="fixed bottom-6 right-6 w-14 h-14 rounded-full flex items-center justify-center text-3xl shadow-2xl hover:scale-110 transform transition z-50 text-white shadow-green-500/30 bg-[#25D366] wa-glow wa-animation">
+        <a href="https://wa.me/6281234567890" target="_blank" class="fixed bottom-6 right-6 w-14 h-14 rounded-full flex items-center justify-center text-3xl shadow-2xl hover:scale-110 transform transition z-50 text-white shadow-green-500/30 bg-[#25D366] wa-glow wa-animation cursor-element">
             <i class="fab fa-whatsapp"></i>
         </a>
 
         <section id="artikel" class="py-24 bg-[#09090B]/90 border-t border-zinc-900">
             <div class="max-w-5xl mx-auto px-4 sm:px-6 text-center">
-                <h2 class="text-3xl brand-font mb-16 text-white tracking-wide">MENGAPA MEMILIH LYN PARFUME?</h2>
+                <h2 class="text-3xl brand-font mb-16 text-white tracking-wide reveal">MENGAPA MEMILIH LYN PARFUME?</h2>
                 <div class="grid md:grid-cols-3 gap-8 text-left">
-                    <div class="bg-[#111115] p-8 rounded-2xl border border-zinc-900">
+                    <div class="bg-[#111115] p-8 rounded-2xl border border-zinc-900 reveal cursor-element hover:border-[#D4AF37]/50 transition-colors">
                         <div class="text-[#D4AF37] text-3xl mb-5"><i class="fas fa-leaf"></i></div>
                         <h4 class="text-white text-lg font-semibold mb-2">Bahan Alami Pilihan</h4>
                         <p class="text-zinc-400 text-sm leading-relaxed">Meracik formula dari minyak esensial murni berstandar tinggi yang sangat ramah dan aman di kulit Anda.</p>
                     </div>
-                    <div class="bg-[#111115] p-8 rounded-2xl border border-zinc-900">
+                    <div class="bg-[#111115] p-8 rounded-2xl border border-zinc-900 reveal delay-100 cursor-element hover:border-[#D4AF37]/50 transition-colors">
                         <div class="text-[#D4AF37] text-3xl mb-5"><i class="fas fa-hourglass-half"></i></div>
                         <h4 class="text-white text-lg font-semibold mb-2">Daya Tahan Ekstra</h4>
                         <p class="text-zinc-400 text-sm leading-relaxed">Konsentrasi extrait de parfum tinggi yang menjamin keharuman menempel setia selama 10 hingga 12 jam.</p>
                     </div>
-                    <div class="bg-[#111115] p-8 rounded-2xl border border-zinc-900">
+                    <div class="bg-[#111115] p-8 rounded-2xl border border-zinc-900 reveal delay-200 cursor-element hover:border-[#D4AF37]/50 transition-colors">
                         <div class="text-[#D4AF37] text-3xl mb-5"><i class="fas fa-award"></i></div>
                         <h4 class="text-white text-lg font-semibold mb-2">Kualitas Nusantara</h4>
                         <p class="text-zinc-400 text-sm leading-relaxed">Bangga mempersembahkan mahakarya mewah standar internasional, diproduksi langsung dari jantung Indonesia.</p>
@@ -301,7 +450,7 @@
         </section>
 
         <footer class="bg-zinc-950 py-12 text-center border-t border-zinc-900 relative z-20">
-            <div class="flex justify-center items-center gap-3 mb-4">
+            <div class="flex justify-center items-center gap-3 mb-4 cursor-element">
                 <div class="w-8 h-8 bg-zinc-900 border border-[#D4AF37]/30 rounded-lg flex items-center justify-center">
                     <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <path d="M5 6L8 9L12 5L16 9L19 6L17 12H7L5 6Z" fill="url(#gold-gradient-footer)" />
@@ -322,8 +471,102 @@
         </footer>
     </div>
 
+    <!-- --- TAMBAHAN: POPUP PENAWARAN --- -->
+    <div id="popup-backdrop" class="fixed inset-0 bg-black/80 backdrop-blur-sm z-[9998] opacity-0 pointer-events-none transition-opacity duration-500 cursor-element" onclick="closeAnnouncement()"></div>
+    
+    <div id="announcement-popup" class="fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 scale-90 opacity-0 z-[9999] bg-[#0F0F13] border border-[#D4AF37]/40 rounded-2xl p-8 w-[90%] max-w-md shadow-2xl shadow-[#D4AF37]/10 pointer-events-none transition-all duration-500 ease-out flex flex-col items-center text-center cursor-element">
+        
+        <div class="absolute -top-6 w-14 h-14 bg-[#0F0F13] border-2 border-[#D4AF37] rounded-full flex items-center justify-center text-[#D4AF37] shadow-lg shadow-[#D4AF37]/20">
+            <i class="fas fa-crown text-xl"></i>
+        </div>
+
+        <button onclick="closeAnnouncement()" class="absolute top-4 right-4 text-zinc-500 hover:text-[#D4AF37] transition-colors cursor-element">
+            <i class="fas fa-times text-xl"></i>
+        </button>
+
+        <h3 class="text-2xl brand-font font-bold text-white mt-4 mb-2 tracking-wide">PENAWARAN EKSKLUSIF</h3>
+        <div class="w-10 h-[1px] bg-[#D4AF37]/50 mb-4"></div>
+        
+        <p class="text-zinc-400 text-sm font-light leading-relaxed mb-6">
+            Selamat datang di dunia kemewahan aroma LYN PARFUME. Khusus hari ini, nikmati potongan <strong class="text-[#D4AF37]">20%</strong> untuk semua koleksi <i>Extrait de Parfum</i> kami.
+        </p>
+
+        <div onclick="copyVoucherCode()" title="Klik untuk menyalin" class="cursor-element bg-zinc-900 border border-zinc-700 rounded-lg py-3 px-4 mb-6 flex items-center justify-between gap-3 w-full border-dashed hover:border-[#D4AF37] transition-colors group">
+            <div class="flex items-center gap-3">
+                <span class="text-xs text-zinc-500 uppercase tracking-widest">KODE:</span>
+                <span class="text-[#D4AF37] font-bold tracking-[3px] text-lg" id="voucher-code">LYNGOLD20</span>
+            </div>
+            <span id="copy-text" class="text-xs font-bold text-zinc-400 group-hover:text-[#D4AF37] transition-colors">
+                <i class="far fa-copy"></i> SALIN
+            </span>
+        </div>
+
+        <button onclick="closeAnnouncement()" class="w-full gold-button py-3 rounded-xl text-xs font-bold tracking-[2px] uppercase cursor-element">
+            TERIMA KASIH & MULAI BELANJA
+        </button>
+    </div>
+
     <script>
-        // SCRIPT 1: INTERAKTIF WELCOME SPLASH OVERLAY
+        // Logika Slider / Banner
+        const storySlider = document.getElementById('story-slider');
+        
+        function slideStory(direction) {
+            const scrollAmount = storySlider.offsetWidth;
+            if (direction === 'left') {
+                storySlider.scrollBy({ left: -scrollAmount, behavior: 'smooth' });
+            } else {
+                storySlider.scrollBy({ left: scrollAmount, behavior: 'smooth' });
+            }
+        }
+
+        // Update indikator (dots) saat slider digeser
+        storySlider.addEventListener('scroll', () => {
+            const index = Math.round(storySlider.scrollLeft / storySlider.offsetWidth);
+            for (let i = 0; i < 3; i++) {
+                const dot = document.getElementById(`dot-${i}`);
+                if (dot) {
+                    if (i === index) {
+                        dot.className = "w-6 h-1.5 rounded-full bg-[#D4AF37] transition-all duration-300";
+                    } else {
+                        dot.className = "w-2 h-1.5 rounded-full bg-zinc-600 transition-all duration-300";
+                    }
+                }
+            }
+        });
+
+        // Custom Cursor Logic
+        const cursor = document.getElementById("custom-cursor");
+        document.addEventListener("mousemove", (e) => {
+            cursor.style.left = e.clientX + "px";
+            cursor.style.top = e.clientY + "px";
+        });
+
+        const addCursorHover = () => {
+            const interactives = document.querySelectorAll('a, button, input, .cursor-element, .perfume-card');
+            interactives.forEach(el => {
+                el.addEventListener('mouseenter', () => cursor.classList.add('cursor-hover'));
+                el.addEventListener('mouseleave', () => cursor.classList.remove('cursor-hover'));
+            });
+        };
+
+        // Smooth Scroll Reveal Observer
+        const revealCallback = (entries, observer) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('active');
+                }
+            });
+        };
+        const revealOptions = { threshold: 0.1, rootMargin: "0px 0px -50px 0px" };
+        const revealObserver = new IntersectionObserver(revealCallback, revealOptions);
+        
+        function initReveals() {
+            document.querySelectorAll('.reveal').forEach(el => {
+                revealObserver.observe(el);
+            });
+        }
+
+        // --- TAMBAHAN & UPDATE: Welcome Overlay & Popup Logic ---
         function closeWelcomeOverlay() {
             const overlay = document.getElementById('welcome-overlay');
             const body = document.getElementById('main-body');
@@ -333,17 +576,60 @@
             setTimeout(() => {
                 overlay.style.display = 'none';
                 body.classList.remove('overflow-hidden');
+                
+                // Panggil popup diskon setelah welcome screen ilang
+                setTimeout(showAnnouncement, 1500); 
             }, 1000);
         }
 
-        // SCRIPT 2: LUMINANCE SPOTLIGHT MOUSE TRACKING EFFECT
+        function showAnnouncement() {
+            const backdrop = document.getElementById('popup-backdrop');
+            const popup = document.getElementById('announcement-popup');
+            if(backdrop && popup) {
+                backdrop.classList.replace('opacity-0', 'opacity-100');
+                backdrop.classList.replace('pointer-events-none', 'pointer-events-auto');
+                
+                popup.classList.replace('opacity-0', 'opacity-100');
+                popup.classList.replace('scale-90', 'scale-100');
+                popup.classList.replace('pointer-events-none', 'pointer-events-auto');
+            }
+        }
+
+        function closeAnnouncement() {
+            const backdrop = document.getElementById('popup-backdrop');
+            const popup = document.getElementById('announcement-popup');
+            if(backdrop && popup) {
+                backdrop.classList.replace('opacity-100', 'opacity-0');
+                backdrop.classList.replace('pointer-events-auto', 'pointer-events-none');
+                
+                popup.classList.replace('opacity-100', 'opacity-0');
+                popup.classList.replace('scale-100', 'scale-90');
+                popup.classList.replace('pointer-events-auto', 'pointer-events-none');
+            }
+        }
+
+        function copyVoucherCode() {
+            const code = document.getElementById('voucher-code').innerText;
+            navigator.clipboard.writeText(code).then(() => {
+                const copyBtn = document.getElementById('copy-text');
+                
+                copyBtn.innerHTML = '<i class="fas fa-check"></i> TERSALIN!';
+                copyBtn.classList.replace('text-zinc-400', 'text-[#D4AF37]');
+                
+                setTimeout(() => {
+                    copyBtn.innerHTML = '<i class="far fa-copy"></i> SALIN';
+                    copyBtn.classList.replace('text-[#D4AF37]', 'text-zinc-400');
+                }, 2000);
+            });
+        }
+
         const spotlight = document.querySelector('.spotlight');
         window.addEventListener('mousemove', e => {
             spotlight.style.setProperty('--x', `${e.clientX}px`);
             spotlight.style.setProperty('--y', `${e.clientY}px`);
         });
 
-        // SCRIPT 3: LIVE GOLD DUST PARTICLES EFFECT
+        // Gold Particles
         const canvas = document.getElementById('gold-particles');
         const ctx = canvas.getContext('2d');
         let particlesArray = [];
@@ -404,8 +690,7 @@
         }
         animateParticles();
 
-
-        // DATA LINK DIRECT & LOOP CATALOG 100 VARIAN
+        // Product Logic
         const imgUrl = "https://i.postimg.cc/xC38QyrM/lyn-botol-jpg.jpg"; 
 
         const baseProducts = [
@@ -446,7 +731,7 @@
                 `<div class="badge bg-[#D4AF37] text-zinc-950 font-bold">${product.badge}</div>` : '';
 
             return `
-                <div class="perfume-card bg-[#0D0D11] rounded-2xl overflow-hidden border border-zinc-900 group relative flex flex-col justify-between">
+                <div class="perfume-card reveal bg-[#0D0D11] rounded-2xl overflow-hidden border border-zinc-900 group relative flex flex-col justify-between cursor-element" data-tilt data-tilt-max="8" data-tilt-speed="400" data-tilt-glare="true" data-tilt-max-glare="0.2">
                     <div class="h-64 bg-zinc-950/60 flex items-center justify-center relative overflow-hidden border-b border-zinc-900">
                         ${badgeHTML}
                         <img src="${product.img}" alt="${product.name}" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105">
@@ -460,7 +745,7 @@
                             </div>
                         </div>
                         <button onclick="beliProduk('${product.name}', ${product.price})" 
-                                class="w-full gold-button py-3 rounded-xl flex items-center justify-center gap-2 text-xs font-bold uppercase tracking-wider">
+                                class="w-full gold-button py-3 rounded-xl flex items-center justify-center gap-2 text-xs font-bold uppercase tracking-wider cursor-element">
                             <i class="fab fa-whatsapp text-sm"></i> Order via WA
                         </button>
                     </div>
@@ -470,16 +755,43 @@
 
         function renderProducts(filteredProducts) {
             document.getElementById('product-grid').innerHTML = filteredProducts.map(createProductCard).join('');
+            
+            initReveals();
+            addCursorHover();
+            
+            VanillaTilt.init(document.querySelectorAll(".perfume-card"), {
+                max: 10,
+                speed: 400,
+                glare: true,
+                "max-glare": 0.15
+            });
         }
+
+        document.getElementById('searchInput').addEventListener('input', (e) => {
+            const searchTerm = e.target.value.toLowerCase();
+            const filtered = products.filter(p => 
+                p.name.toLowerCase().includes(searchTerm) || 
+                p.desc.toLowerCase().includes(searchTerm)
+            );
+            renderProducts(filtered);
+            
+            document.querySelectorAll('.filter-btn').forEach(btn => {
+                if (btn.getAttribute('data-category') === 'all') {
+                    btn.className = "filter-btn cursor-element bg-[#D4AF37] text-zinc-950 px-6 py-2.5 rounded-md text-xs font-bold tracking-[2px] uppercase transition";
+                } else {
+                    btn.className = "filter-btn cursor-element text-[#D4AF37] border border-[#D4AF37]/30 bg-zinc-900/50 hover:bg-[#D4AF37]/10 px-6 py-2.5 rounded-md text-xs font-bold tracking-[2px] uppercase transition";
+                }
+            });
+        });
 
         function filterCategory(category) {
             const buttons = document.querySelectorAll('.filter-btn');
             
             buttons.forEach(btn => {
                 if (btn.getAttribute('data-category') === category) {
-                    btn.className = "filter-btn bg-[#D4AF37] text-zinc-950 px-6 py-2.5 rounded-md text-xs font-bold tracking-[2px] uppercase transition";
+                    btn.className = "filter-btn cursor-element bg-[#D4AF37] text-zinc-950 px-6 py-2.5 rounded-md text-xs font-bold tracking-[2px] uppercase transition";
                 } else {
-                    btn.className = "filter-btn text-[#D4AF37] border border-[#D4AF37]/30 bg-zinc-900/50 hover:bg-[#D4AF37]/10 px-6 py-2.5 rounded-md text-xs font-bold tracking-[2px] uppercase transition";
+                    btn.className = "filter-btn cursor-element text-[#D4AF37] border border-[#D4AF37]/30 bg-zinc-900/50 hover:bg-[#D4AF37]/10 px-6 py-2.5 rounded-md text-xs font-bold tracking-[2px] uppercase transition";
                 }
             });
 
@@ -500,6 +812,8 @@
         });
 
         renderProducts(products);
+        initReveals();
+        addCursorHover();
 
         function beliProduk(nama, harga) {
             const msg = `Halo LYN PARFUME,\n\nSaya tertarik untuk memesan produk eksklusif berikut:\n\n📌 *Produk:* ${nama}\n💰 *Harga:* Rp ${harga.toLocaleString('id-ID')}\n\nMohon informasi ketersediaan stok dan kelanjutan transaksinya. Terima kasih.`;
