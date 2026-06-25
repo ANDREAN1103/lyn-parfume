@@ -13,29 +13,6 @@
         body {
             font-family: 'Plus Jakarta Sans', sans-serif;
             scroll-behavior: smooth;
-            cursor: none; 
-        }
-        
-        #custom-cursor {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 10px;
-            height: 10px;
-            background-color: #D4AF37;
-            border-radius: 50%;
-            pointer-events: none;
-            z-index: 10000;
-            transform: translate(-50%, -50%);
-            transition: width 0.3s, height 0.3s, background-color 0.3s, mix-blend-mode 0.3s;
-            mix-blend-mode: difference;
-        }
-        #custom-cursor.cursor-hover {
-            width: 40px;
-            height: 40px;
-            background-color: rgba(212, 175, 55, 0.4);
-            border: 1px solid #D4AF37;
-            mix-blend-mode: normal;
         }
 
         .reveal {
@@ -111,7 +88,6 @@
             font-weight: 600;
             letter-spacing: 0.5px;
             transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
-            cursor: none; 
         }
 
         .gold-button:hover {
@@ -196,14 +172,8 @@
 
         .wa-animation {
             animation: wa-bounce 4s infinite ease-in-out;
-            cursor: none;
-        }
-        
-        a, input, button {
-            cursor: none !important;
         }
 
-        /* --- TAMBAHAN: ANIMASI MARQUEE --- */
         @keyframes scroll-left {
             0% { transform: translateX(0); }
             100% { transform: translateX(-50%); }
@@ -220,12 +190,10 @@
 </head>
 <body class="bg-[#09090B] text-zinc-100 antialiased overflow-hidden" id="main-body">
 
-    <div id="custom-cursor"></div>
-
     <div class="spotlight hidden md:block"></div>
     <canvas id="gold-particles"></canvas>
 
-    <div id="welcome-overlay" class="fixed inset-0 bg-[#09090B] z-[9999] flex flex-col items-center justify-center transition-all duration-1000 ease-in-out px-4 text-center cursor-element">
+    <div id="welcome-overlay" class="fixed inset-0 bg-[#09090B] z-[9999] flex flex-col items-center justify-center transition-all duration-1000 ease-in-out px-4 text-center">
         <div class="max-w-md mx-auto flex flex-col items-center animate-luxury-pulse mb-8">
             <div class="w-20 h-20 bg-zinc-900 border-2 border-[#D4AF37]/40 rounded-2xl flex items-center justify-center shadow-2xl mb-6">
                 <svg class="w-12 h-12" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -251,15 +219,15 @@
             </p>
         </div>
 
-        <button onclick="closeWelcomeOverlay()" class="gold-button px-8 py-3 rounded-xl text-xs font-bold tracking-[3px] uppercase shadow-lg shadow-amber-500/10 cursor-element">
+        <button onclick="closeWelcomeOverlay()" class="gold-button px-8 py-3 rounded-xl text-xs font-bold tracking-[3px] uppercase shadow-lg shadow-amber-500/10">
             MASUK KE KOLEKSI
         </button>
     </div>
 
     <div class="relative z-10">
-        <header class="bg-zinc-950/80 backdrop-blur-md sticky top-0 z-50 border-b border-zinc-900 cursor-element">
+        <header class="bg-zinc-950/80 backdrop-blur-md sticky top-0 z-50 border-b border-zinc-900">
             <div class="max-w-7xl mx-auto px-4 sm:px-6 py-4 flex items-center justify-between">
-                <div class="flex items-center gap-3.5 logo-container-effect">
+                <div class="flex items-center gap-3.5 logo-container-effect cursor-pointer" onclick="window.scrollTo(0,0)">
                     <div class="w-11 h-11 bg-zinc-900 border border-[#D4AF37]/30 rounded-xl flex items-center justify-center shadow-lg transition-transform duration-300">
                         <svg class="w-7 h-7" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <path d="M5 6L8 9L12 5L16 9L19 6L17 12H7L5 6Z" fill="url(#gold-gradient)" />
@@ -281,19 +249,18 @@
                 </div>
 
                 <nav class="hidden md:flex gap-10 text-xs font-semibold uppercase tracking-[2px] text-zinc-400">
-                    <a href="#home" class="hover:text-[#D4AF37] transition-colors cursor-element">Beranda</a>
-                    <a href="#story" class="hover:text-[#D4AF37] transition-colors cursor-element">Kisah Kami</a>
-                    <a href="#produk" class="hover:text-[#D4AF37] transition-colors cursor-element">Koleksi</a>
-                    <a href="#artikel" class="hover:text-[#D4AF37] transition-colors cursor-element">Kualitas</a>
+                    <a href="#home" class="hover:text-[#D4AF37] transition-colors">Beranda</a>
+                    <a href="#story" class="hover:text-[#D4AF37] transition-colors">Kisah Kami</a>
+                    <a href="#produk" class="hover:text-[#D4AF37] transition-colors">Koleksi</a>
+                    <a href="#ulasan" class="hover:text-[#D4AF37] transition-colors">Ulasan</a>
                 </nav>
 
-                <a href="https://wa.me/6281234567890" target="_blank" class="gold-button px-5 py-2.5 rounded-lg flex items-center gap-2 text-sm shadow-md cursor-element">
+                <a href="https://wa.me/6281234567890" target="_blank" class="gold-button px-5 py-2.5 rounded-lg flex items-center gap-2 text-sm shadow-md">
                     <i class="fab fa-whatsapp text-base"></i> <span class="hidden sm:inline">Hubungi</span> Admin
                 </a>
             </div>
         </header>
 
-        <!-- --- TAMBAHAN: MARQUEE BARU --- -->
         <div class="bg-[#D4AF37]/10 border-b border-[#D4AF37]/20 py-2.5 overflow-hidden flex items-center relative z-40">
             <div class="marquee-container text-[#D4AF37] font-semibold text-[10px] sm:text-xs tracking-[3px] uppercase whitespace-nowrap">
                 <div class="w-1/2 flex justify-around items-center">
@@ -320,7 +287,7 @@
                 <span class="text-[#D4AF37] text-xs font-bold tracking-[6px] uppercase bg-[#D4AF37]/10 px-4 py-2 rounded-full border border-[#D4AF37]/20">Ciptakan Kenangan Lewat Aroma</span>
                 <h2 class="text-4xl sm:text-6xl md:text-7xl font-bold brand-font mt-6 mb-6 tracking-wide text-white leading-tight">ELEGANCE IN<br class="sm:hidden"> EVERY DROP</h2>
                 <p class="text-lg sm:text-xl text-zinc-300 max-w-2xl mx-auto font-light leading-relaxed mb-10">Eksplorasi mahakarya parfum premium lokal kualitas dunia. Wangi mewah, elegan, dan tahan lama hingga sepanjang hari.</p>
-                <a href="#produk" class="gold-button px-10 py-4 rounded-xl text-md font-bold tracking-widest uppercase shadow-lg shadow-amber-500/10 cursor-element">
+                <a href="#produk" class="gold-button px-10 py-4 rounded-xl text-md font-bold tracking-widest uppercase shadow-lg shadow-amber-500/10">
                     JELAJAHI KOLEKSI
                 </a>
             </div>
@@ -332,7 +299,7 @@
                     
                     <div class="reveal relative w-full aspect-video rounded-2xl overflow-hidden border border-zinc-800 group">
                         
-                        <div id="story-slider" class="flex w-full h-full overflow-x-auto snap-x snap-mandatory scroll-smooth hide-scrollbar cursor-element">
+                        <div id="story-slider" class="flex w-full h-full overflow-x-auto snap-x snap-mandatory scroll-smooth hide-scrollbar">
                             <div class="min-w-full h-full snap-center relative">
                                 <img src="https://images.unsplash.com/photo-1594035910387-fea47794261f?q=80&w=1920&h=1080&auto=format&fit=crop" alt="The Art of Making" class="w-full h-full object-cover opacity-80 transition-transform duration-1000 hover:scale-105">
                                 <div class="absolute inset-0 bg-gradient-to-t from-[#09090B] via-transparent to-transparent"></div>
@@ -356,10 +323,10 @@
                             </div>
                         </div>
 
-                        <button onclick="slideStory('left')" class="absolute left-4 sm:left-8 top-1/2 -translate-y-1/2 w-12 h-12 bg-zinc-950/60 backdrop-blur-md border border-[#D4AF37]/50 rounded-full flex items-center justify-center text-[#D4AF37] opacity-0 group-hover:opacity-100 transition-all duration-300 cursor-element hover:bg-[#D4AF37] hover:text-zinc-950 hover:scale-110 z-10">
+                        <button onclick="slideStory('left')" class="absolute left-4 sm:left-8 top-1/2 -translate-y-1/2 w-12 h-12 bg-zinc-950/60 backdrop-blur-md border border-[#D4AF37]/50 rounded-full flex items-center justify-center text-[#D4AF37] opacity-0 group-hover:opacity-100 transition-all duration-300 hover:bg-[#D4AF37] hover:text-zinc-950 hover:scale-110 z-10">
                             <i class="fas fa-chevron-left text-lg"></i>
                         </button>
-                        <button onclick="slideStory('right')" class="absolute right-4 sm:right-8 top-1/2 -translate-y-1/2 w-12 h-12 bg-zinc-950/60 backdrop-blur-md border border-[#D4AF37]/50 rounded-full flex items-center justify-center text-[#D4AF37] opacity-0 group-hover:opacity-100 transition-all duration-300 cursor-element hover:bg-[#D4AF37] hover:text-zinc-950 hover:scale-110 z-10">
+                        <button onclick="slideStory('right')" class="absolute right-4 sm:right-8 top-1/2 -translate-y-1/2 w-12 h-12 bg-zinc-950/60 backdrop-blur-md border border-[#D4AF37]/50 rounded-full flex items-center justify-center text-[#D4AF37] opacity-0 group-hover:opacity-100 transition-all duration-300 hover:bg-[#D4AF37] hover:text-zinc-950 hover:scale-110 z-10">
                             <i class="fas fa-chevron-right text-lg"></i>
                         </button>
 
@@ -375,15 +342,15 @@
                         <h3 class="text-3xl sm:text-5xl brand-font text-white mb-12 leading-tight">MAHAKARYA DI SETIAP <br class="hidden sm:block"> TINGKATAN NADA</h3>
                         
                         <div class="grid sm:grid-cols-3 gap-8 text-left">
-                            <div class="border-t-2 sm:border-t-0 sm:border-l-2 border-[#D4AF37]/30 pt-4 sm:pt-0 sm:pl-6 hover:border-[#D4AF37] transition-colors cursor-element">
+                            <div class="border-t-2 sm:border-t-0 sm:border-l-2 border-[#D4AF37]/30 pt-4 sm:pt-0 sm:pl-6 hover:border-[#D4AF37] transition-colors">
                                 <h4 class="text-white text-lg font-semibold tracking-wider mb-3">Top Notes</h4>
                                 <p class="text-zinc-400 text-sm font-light leading-relaxed">Kesan pertama yang memikat. Sentuhan segar dan ringan yang langsung memeluk indera penciuman Anda di detik pertama.</p>
                             </div>
-                            <div class="border-t-2 sm:border-t-0 sm:border-l-2 border-[#D4AF37]/30 pt-4 sm:pt-0 sm:pl-6 hover:border-[#D4AF37] transition-colors cursor-element">
+                            <div class="border-t-2 sm:border-t-0 sm:border-l-2 border-[#D4AF37]/30 pt-4 sm:pt-0 sm:pl-6 hover:border-[#D4AF37] transition-colors">
                                 <h4 class="text-white text-lg font-semibold tracking-wider mb-3">Heart (Middle) Notes</h4>
                                 <p class="text-zinc-400 text-sm font-light leading-relaxed">Karakter utama parfum yang mekar setelah beberapa menit, menghadirkan harmoni floral, rempah, atau kehangatan yang kompleks.</p>
                             </div>
-                            <div class="border-t-2 sm:border-t-0 sm:border-l-2 border-[#D4AF37]/30 pt-4 sm:pt-0 sm:pl-6 hover:border-[#D4AF37] transition-colors cursor-element">
+                            <div class="border-t-2 sm:border-t-0 sm:border-l-2 border-[#D4AF37]/30 pt-4 sm:pt-0 sm:pl-6 hover:border-[#D4AF37] transition-colors">
                                 <h4 class="text-white text-lg font-semibold tracking-wider mb-3">Base Notes</h4>
                                 <p class="text-zinc-400 text-sm font-light leading-relaxed">Jejak aroma yang tertinggal hingga penghujung hari. Kaya, dalam, dan mengunci seluruh lapisan aroma di kulit Anda selama berjam-jam.</p>
                             </div>
@@ -402,9 +369,9 @@
                 </div>
 
                 <div class="max-w-md mx-auto mb-10 px-4 reveal">
-                    <div class="relative cursor-element">
+                    <div class="relative">
                         <input type="text" id="searchInput" placeholder="Cari parfum impian Anda..." 
-                               class="w-full bg-zinc-900/50 border border-zinc-800 text-white placeholder-zinc-600 rounded-xl px-5 py-3 text-xs tracking-wider focus:outline-none focus:border-[#D4AF37] transition-all cursor-element">
+                               class="w-full bg-zinc-900/50 border border-zinc-800 text-white placeholder-zinc-600 rounded-xl px-5 py-3 text-xs tracking-wider focus:outline-none focus:border-[#D4AF37] transition-all">
                         <div class="absolute right-4 top-3 text-zinc-500 pointer-events-none">
                             <i class="fas fa-search"></i>
                         </div>
@@ -412,35 +379,82 @@
                 </div>
 
                 <div class="flex flex-wrap justify-center gap-2.5 mb-14 reveal" id="filter-container">
-                    <button data-category="all" class="filter-btn cursor-element bg-[#D4AF37] text-zinc-950 px-6 py-2.5 rounded-md text-xs font-bold tracking-[2px] uppercase transition">Semua</button>
-                    <button data-category="pria" class="filter-btn cursor-element text-[#D4AF37] border border-[#D4AF37]/30 bg-zinc-900/50 hover:bg-[#D4AF37]/10 px-6 py-2.5 rounded-md text-xs font-bold tracking-[2px] uppercase transition">Pria</button>
-                    <button data-category="wanita" class="filter-btn cursor-element text-[#D4AF37] border border-[#D4AF37]/30 bg-zinc-900/50 hover:bg-[#D4AF37]/10 px-6 py-2.5 rounded-md text-xs font-bold tracking-[2px] uppercase transition">Wanita</button>
-                    <button data-category="unisex" class="filter-btn cursor-element text-[#D4AF37] border border-[#D4AF37]/30 bg-zinc-900/50 hover:bg-[#D4AF37]/10 px-6 py-2.5 rounded-md text-xs font-bold tracking-[2px] uppercase transition">Unisex</button>
+                    <button data-category="all" class="filter-btn bg-[#D4AF37] text-zinc-950 px-6 py-2.5 rounded-md text-xs font-bold tracking-[2px] uppercase transition">Semua</button>
+                    <button data-category="pria" class="filter-btn text-[#D4AF37] border border-[#D4AF37]/30 bg-zinc-900/50 hover:bg-[#D4AF37]/10 px-6 py-2.5 rounded-md text-xs font-bold tracking-[2px] uppercase transition">Pria</button>
+                    <button data-category="wanita" class="filter-btn text-[#D4AF37] border border-[#D4AF37]/30 bg-zinc-900/50 hover:bg-[#D4AF37]/10 px-6 py-2.5 rounded-md text-xs font-bold tracking-[2px] uppercase transition">Wanita</button>
+                    <button data-category="unisex" class="filter-btn text-[#D4AF37] border border-[#D4AF37]/30 bg-zinc-900/50 hover:bg-[#D4AF37]/10 px-6 py-2.5 rounded-md text-xs font-bold tracking-[2px] uppercase transition">Unisex</button>
                 </div>
 
                 <div class="grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 sm:gap-8" id="product-grid"></div>
             </div>
         </section>
 
-        <a href="https://wa.me/6281234567890" target="_blank" class="fixed bottom-6 right-6 w-14 h-14 rounded-full flex items-center justify-center text-3xl shadow-2xl hover:scale-110 transform transition z-50 text-white shadow-green-500/30 bg-[#25D366] wa-glow wa-animation cursor-element">
-            <i class="fab fa-whatsapp"></i>
-        </a>
+        <section id="ulasan" class="py-24 bg-[#09090B] relative border-t border-zinc-900">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 text-center">
+                <h2 class="text-[#D4AF37] text-xs font-bold tracking-[6px] uppercase mb-4 reveal">Testimoni</h2>
+                <h3 class="text-3xl sm:text-4xl brand-font text-white mb-16 tracking-wider reveal">APA KATA MEREKA</h3>
+                
+                <div class="grid md:grid-cols-3 gap-8">
+                    <div class="bg-[#111115] p-8 rounded-2xl border border-zinc-900 reveal text-left relative hover:border-[#D4AF37]/50 transition-colors">
+                        <div class="text-[#D4AF37] mb-4 flex gap-1 text-sm">
+                            <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+                        </div>
+                        <p class="text-zinc-400 text-sm font-light italic mb-6 leading-relaxed">"Wanginya benar-benar mewah dan tahan seharian penuh. Varian LYN NOIR sukses bikin saya merasa lebih percaya diri saat bertemu dengan klien."</p>
+                        <div class="flex items-center gap-3">
+                            <div class="w-10 h-10 rounded-full bg-zinc-800 border border-[#D4AF37]/30 flex items-center justify-center text-[#D4AF37] font-bold">A</div>
+                            <div>
+                                <h4 class="text-white text-sm font-semibold">Andi Pratama</h4>
+                                <p class="text-zinc-500 text-xs">Pengusaha</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="bg-[#111115] p-8 rounded-2xl border border-zinc-900 reveal delay-100 text-left relative hover:border-[#D4AF37]/50 transition-colors">
+                        <div class="text-[#D4AF37] mb-4 flex gap-1 text-sm">
+                            <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+                        </div>
+                        <p class="text-zinc-400 text-sm font-light italic mb-6 leading-relaxed">"Awalnya ragu beli parfum lokal, tapi LYN ROSE ÉLÉGANCE mematahkan keraguan saya. Projection-nya luar biasa dan wanginya sangat elegan!"</p>
+                        <div class="flex items-center gap-3">
+                            <div class="w-10 h-10 rounded-full bg-zinc-800 border border-[#D4AF37]/30 flex items-center justify-center text-[#D4AF37] font-bold">S</div>
+                            <div>
+                                <h4 class="text-white text-sm font-semibold">Sarah Wijaya</h4>
+                                <p class="text-zinc-500 text-xs">Karyawan Swasta</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="bg-[#111115] p-8 rounded-2xl border border-zinc-900 reveal delay-200 text-left relative hover:border-[#D4AF37]/50 transition-colors">
+                        <div class="text-[#D4AF37] mb-4 flex gap-1 text-sm">
+                            <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i>
+                        </div>
+                        <p class="text-zinc-400 text-sm font-light italic mb-6 leading-relaxed">"Packaging-nya juara, sangat cocok buat dijadikan kado. Saya beri suami LYN GOLD AMBER dan dia sangat suka dengan aroma rempahnya yang hangat."</p>
+                        <div class="flex items-center gap-3">
+                            <div class="w-10 h-10 rounded-full bg-zinc-800 border border-[#D4AF37]/30 flex items-center justify-center text-[#D4AF37] font-bold">N</div>
+                            <div>
+                                <h4 class="text-white text-sm font-semibold">Nadia Putri</h4>
+                                <p class="text-zinc-500 text-xs">Ibu Rumah Tangga</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
 
         <section id="artikel" class="py-24 bg-[#09090B]/90 border-t border-zinc-900">
             <div class="max-w-5xl mx-auto px-4 sm:px-6 text-center">
                 <h2 class="text-3xl brand-font mb-16 text-white tracking-wide reveal">MENGAPA MEMILIH LYN PARFUME?</h2>
                 <div class="grid md:grid-cols-3 gap-8 text-left">
-                    <div class="bg-[#111115] p-8 rounded-2xl border border-zinc-900 reveal cursor-element hover:border-[#D4AF37]/50 transition-colors">
+                    <div class="bg-[#111115] p-8 rounded-2xl border border-zinc-900 reveal hover:border-[#D4AF37]/50 transition-colors">
                         <div class="text-[#D4AF37] text-3xl mb-5"><i class="fas fa-leaf"></i></div>
                         <h4 class="text-white text-lg font-semibold mb-2">Bahan Alami Pilihan</h4>
                         <p class="text-zinc-400 text-sm leading-relaxed">Meracik formula dari minyak esensial murni berstandar tinggi yang sangat ramah dan aman di kulit Anda.</p>
                     </div>
-                    <div class="bg-[#111115] p-8 rounded-2xl border border-zinc-900 reveal delay-100 cursor-element hover:border-[#D4AF37]/50 transition-colors">
+                    <div class="bg-[#111115] p-8 rounded-2xl border border-zinc-900 reveal delay-100 hover:border-[#D4AF37]/50 transition-colors">
                         <div class="text-[#D4AF37] text-3xl mb-5"><i class="fas fa-hourglass-half"></i></div>
                         <h4 class="text-white text-lg font-semibold mb-2">Daya Tahan Ekstra</h4>
                         <p class="text-zinc-400 text-sm leading-relaxed">Konsentrasi extrait de parfum tinggi yang menjamin keharuman menempel setia selama 10 hingga 12 jam.</p>
                     </div>
-                    <div class="bg-[#111115] p-8 rounded-2xl border border-zinc-900 reveal delay-200 cursor-element hover:border-[#D4AF37]/50 transition-colors">
+                    <div class="bg-[#111115] p-8 rounded-2xl border border-zinc-900 reveal delay-200 hover:border-[#D4AF37]/50 transition-colors">
                         <div class="text-[#D4AF37] text-3xl mb-5"><i class="fas fa-award"></i></div>
                         <h4 class="text-white text-lg font-semibold mb-2">Kualitas Nusantara</h4>
                         <p class="text-zinc-400 text-sm leading-relaxed">Bangga mempersembahkan mahakarya mewah standar internasional, diproduksi langsung dari jantung Indonesia.</p>
@@ -450,7 +464,7 @@
         </section>
 
         <footer class="bg-zinc-950 py-12 text-center border-t border-zinc-900 relative z-20">
-            <div class="flex justify-center items-center gap-3 mb-4 cursor-element">
+            <div class="flex justify-center items-center gap-3 mb-4">
                 <div class="w-8 h-8 bg-zinc-900 border border-[#D4AF37]/30 rounded-lg flex items-center justify-center">
                     <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <path d="M5 6L8 9L12 5L16 9L19 6L17 12H7L5 6Z" fill="url(#gold-gradient-footer)" />
@@ -471,16 +485,23 @@
         </footer>
     </div>
 
-    <!-- --- TAMBAHAN: POPUP PENAWARAN --- -->
-    <div id="popup-backdrop" class="fixed inset-0 bg-black/80 backdrop-blur-sm z-[9998] opacity-0 pointer-events-none transition-opacity duration-500 cursor-element" onclick="closeAnnouncement()"></div>
+    <a href="https://wa.me/6281234567890" target="_blank" class="fixed bottom-6 right-6 w-14 h-14 rounded-full flex items-center justify-center text-3xl shadow-2xl hover:scale-110 transform transition z-50 text-white shadow-green-500/30 bg-[#25D366] wa-glow wa-animation">
+        <i class="fab fa-whatsapp"></i>
+    </a>
+
+    <button id="backToTopBtn" onclick="window.scrollTo({top: 0, behavior: 'smooth'})" class="fixed bottom-24 right-6 w-12 h-12 bg-zinc-900 border border-[#D4AF37]/50 text-[#D4AF37] rounded-full flex items-center justify-center shadow-lg opacity-0 pointer-events-none transition-all duration-300 z-40 hover:bg-[#D4AF37] hover:text-zinc-950 hover:scale-110">
+        <i class="fas fa-arrow-up"></i>
+    </button>
+
+    <div id="popup-backdrop" class="fixed inset-0 bg-black/80 backdrop-blur-sm z-[9998] opacity-0 pointer-events-none transition-opacity duration-500" onclick="closeAnnouncement()"></div>
     
-    <div id="announcement-popup" class="fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 scale-90 opacity-0 z-[9999] bg-[#0F0F13] border border-[#D4AF37]/40 rounded-2xl p-8 w-[90%] max-w-md shadow-2xl shadow-[#D4AF37]/10 pointer-events-none transition-all duration-500 ease-out flex flex-col items-center text-center cursor-element">
+    <div id="announcement-popup" class="fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 scale-90 opacity-0 z-[9999] bg-[#0F0F13] border border-[#D4AF37]/40 rounded-2xl p-8 w-[90%] max-w-md shadow-2xl shadow-[#D4AF37]/10 pointer-events-none transition-all duration-500 ease-out flex flex-col items-center text-center">
         
         <div class="absolute -top-6 w-14 h-14 bg-[#0F0F13] border-2 border-[#D4AF37] rounded-full flex items-center justify-center text-[#D4AF37] shadow-lg shadow-[#D4AF37]/20">
             <i class="fas fa-crown text-xl"></i>
         </div>
 
-        <button onclick="closeAnnouncement()" class="absolute top-4 right-4 text-zinc-500 hover:text-[#D4AF37] transition-colors cursor-element">
+        <button onclick="closeAnnouncement()" class="absolute top-4 right-4 text-zinc-500 hover:text-[#D4AF37] transition-colors">
             <i class="fas fa-times text-xl"></i>
         </button>
 
@@ -491,7 +512,7 @@
             Selamat datang di dunia kemewahan aroma LYN PARFUME. Khusus hari ini, nikmati potongan <strong class="text-[#D4AF37]">20%</strong> untuk semua koleksi <i>Extrait de Parfum</i> kami.
         </p>
 
-        <div onclick="copyVoucherCode()" title="Klik untuk menyalin" class="cursor-element bg-zinc-900 border border-zinc-700 rounded-lg py-3 px-4 mb-6 flex items-center justify-between gap-3 w-full border-dashed hover:border-[#D4AF37] transition-colors group">
+        <div onclick="copyVoucherCode()" title="Klik untuk menyalin" class="cursor-pointer bg-zinc-900 border border-zinc-700 rounded-lg py-3 px-4 mb-6 flex items-center justify-between gap-3 w-full border-dashed hover:border-[#D4AF37] transition-colors group">
             <div class="flex items-center gap-3">
                 <span class="text-xs text-zinc-500 uppercase tracking-widest">KODE:</span>
                 <span class="text-[#D4AF37] font-bold tracking-[3px] text-lg" id="voucher-code">LYNGOLD20</span>
@@ -501,7 +522,7 @@
             </span>
         </div>
 
-        <button onclick="closeAnnouncement()" class="w-full gold-button py-3 rounded-xl text-xs font-bold tracking-[2px] uppercase cursor-element">
+        <button onclick="closeAnnouncement()" class="w-full gold-button py-3 rounded-xl text-xs font-bold tracking-[2px] uppercase">
             TERIMA KASIH & MULAI BELANJA
         </button>
     </div>
@@ -534,20 +555,17 @@
             }
         });
 
-        // Custom Cursor Logic
-        const cursor = document.getElementById("custom-cursor");
-        document.addEventListener("mousemove", (e) => {
-            cursor.style.left = e.clientX + "px";
-            cursor.style.top = e.clientY + "px";
+        // Logika Tombol Back To Top
+        window.addEventListener('scroll', () => {
+            const btt = document.getElementById('backToTopBtn');
+            if (window.scrollY > 500) {
+                btt.classList.remove('opacity-0', 'pointer-events-none');
+                btt.classList.add('opacity-100', 'pointer-events-auto');
+            } else {
+                btt.classList.add('opacity-0', 'pointer-events-none');
+                btt.classList.remove('opacity-100', 'pointer-events-auto');
+            }
         });
-
-        const addCursorHover = () => {
-            const interactives = document.querySelectorAll('a, button, input, .cursor-element, .perfume-card');
-            interactives.forEach(el => {
-                el.addEventListener('mouseenter', () => cursor.classList.add('cursor-hover'));
-                el.addEventListener('mouseleave', () => cursor.classList.remove('cursor-hover'));
-            });
-        };
 
         // Smooth Scroll Reveal Observer
         const revealCallback = (entries, observer) => {
@@ -566,7 +584,6 @@
             });
         }
 
-        // --- TAMBAHAN & UPDATE: Welcome Overlay & Popup Logic ---
         function closeWelcomeOverlay() {
             const overlay = document.getElementById('welcome-overlay');
             const body = document.getElementById('main-body');
@@ -731,7 +748,7 @@
                 `<div class="badge bg-[#D4AF37] text-zinc-950 font-bold">${product.badge}</div>` : '';
 
             return `
-                <div class="perfume-card reveal bg-[#0D0D11] rounded-2xl overflow-hidden border border-zinc-900 group relative flex flex-col justify-between cursor-element" data-tilt data-tilt-max="8" data-tilt-speed="400" data-tilt-glare="true" data-tilt-max-glare="0.2">
+                <div class="perfume-card reveal bg-[#0D0D11] rounded-2xl overflow-hidden border border-zinc-900 group relative flex flex-col justify-between" data-tilt data-tilt-max="8" data-tilt-speed="400" data-tilt-glare="true" data-tilt-max-glare="0.2">
                     <div class="h-64 bg-zinc-950/60 flex items-center justify-center relative overflow-hidden border-b border-zinc-900">
                         ${badgeHTML}
                         <img src="${product.img}" alt="${product.name}" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105">
@@ -745,7 +762,7 @@
                             </div>
                         </div>
                         <button onclick="beliProduk('${product.name}', ${product.price})" 
-                                class="w-full gold-button py-3 rounded-xl flex items-center justify-center gap-2 text-xs font-bold uppercase tracking-wider cursor-element">
+                                class="w-full gold-button py-3 rounded-xl flex items-center justify-center gap-2 text-xs font-bold uppercase tracking-wider">
                             <i class="fab fa-whatsapp text-sm"></i> Order via WA
                         </button>
                     </div>
@@ -757,7 +774,6 @@
             document.getElementById('product-grid').innerHTML = filteredProducts.map(createProductCard).join('');
             
             initReveals();
-            addCursorHover();
             
             VanillaTilt.init(document.querySelectorAll(".perfume-card"), {
                 max: 10,
@@ -777,9 +793,9 @@
             
             document.querySelectorAll('.filter-btn').forEach(btn => {
                 if (btn.getAttribute('data-category') === 'all') {
-                    btn.className = "filter-btn cursor-element bg-[#D4AF37] text-zinc-950 px-6 py-2.5 rounded-md text-xs font-bold tracking-[2px] uppercase transition";
+                    btn.className = "filter-btn bg-[#D4AF37] text-zinc-950 px-6 py-2.5 rounded-md text-xs font-bold tracking-[2px] uppercase transition";
                 } else {
-                    btn.className = "filter-btn cursor-element text-[#D4AF37] border border-[#D4AF37]/30 bg-zinc-900/50 hover:bg-[#D4AF37]/10 px-6 py-2.5 rounded-md text-xs font-bold tracking-[2px] uppercase transition";
+                    btn.className = "filter-btn text-[#D4AF37] border border-[#D4AF37]/30 bg-zinc-900/50 hover:bg-[#D4AF37]/10 px-6 py-2.5 rounded-md text-xs font-bold tracking-[2px] uppercase transition";
                 }
             });
         });
@@ -789,9 +805,9 @@
             
             buttons.forEach(btn => {
                 if (btn.getAttribute('data-category') === category) {
-                    btn.className = "filter-btn cursor-element bg-[#D4AF37] text-zinc-950 px-6 py-2.5 rounded-md text-xs font-bold tracking-[2px] uppercase transition";
+                    btn.className = "filter-btn bg-[#D4AF37] text-zinc-950 px-6 py-2.5 rounded-md text-xs font-bold tracking-[2px] uppercase transition";
                 } else {
-                    btn.className = "filter-btn cursor-element text-[#D4AF37] border border-[#D4AF37]/30 bg-zinc-900/50 hover:bg-[#D4AF37]/10 px-6 py-2.5 rounded-md text-xs font-bold tracking-[2px] uppercase transition";
+                    btn.className = "filter-btn text-[#D4AF37] border border-[#D4AF37]/30 bg-zinc-900/50 hover:bg-[#D4AF37]/10 px-6 py-2.5 rounded-md text-xs font-bold tracking-[2px] uppercase transition";
                 }
             });
 
@@ -813,7 +829,6 @@
 
         renderProducts(products);
         initReveals();
-        addCursorHover();
 
         function beliProduk(nama, harga) {
             const msg = `Halo LYN PARFUME,\n\nSaya tertarik untuk memesan produk eksklusif berikut:\n\n📌 *Produk:* ${nama}\n💰 *Harga:* Rp ${harga.toLocaleString('id-ID')}\n\nMohon informasi ketersediaan stok dan kelanjutan transaksinya. Terima kasih.`;
